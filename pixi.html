@@ -28,6 +28,19 @@
   //Add the canvas that Pixi automatically created for you to the HTML document
   document.body.appendChild(app.view);
 
+// sprite load in
+
+  PIXI.loader
+  .add("./images/skrenk.jpg")
+  .load(setup);
+
+  function setup() {
+    let sprite = new PIXI.Sprite(
+      PIXI.loader.resources["./images/skrenk.jpg"].texture
+    );
+    app.stage.addChild(sprite);
+  }
+
 //   let app = new PIXI.Application({ 
 //     width: 256,         // default: 800
 //     height: 256,        // default: 600
@@ -37,5 +50,6 @@
 //   }
 // );
   </script>
+  <style>* {padding: 0; margin: 0}</style>
 </body>
 </html>
