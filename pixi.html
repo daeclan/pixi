@@ -24,6 +24,8 @@
     }
   );
 
+  let TextureCache = PIXI.utils.TextureCache
+
   //Add the canvas that Pixi automatically created for you to the HTML document
   document.body.appendChild(app.view);
 
@@ -32,6 +34,7 @@
     .add("./images/skrenk.jpg")
     .add("./images/fion.jpg")
     .add("./images/donka.jpg")
+    .add("./images/tileset.jpg")
     .load(setup);
 
   //This `setup` function will run when the image has loaded
@@ -41,11 +44,21 @@
     let skrenk = new Sprite(resources["./images/skrenk.jpg"].texture);
     let fion = new Sprite(resources["./images/fion.jpg"].texture);
     let donka = new Sprite(resources["./images/donka.jpg"].texture);
+    let texture = TextureCache["./images/tileset.jpg"];
+
+    let rectangle = new PIXI.Rectangle(0, 145, 95, 95);
+    texture.frame = rectangle;
+    let grass = new Sprite(texture);
+    grass.x = 0;
+    grass.y = 500;
     
+
+
     //Add the cat to the stage
     app.stage.addChild(skrenk);
     app.stage.addChild(fion);
     app.stage.addChild(donka);
+    app.stage.addChild(grass);
 
     skrenk.scale.x = 0.5;
     skrenk.scale.y = 0.5;
@@ -60,6 +73,7 @@
   app.renderer.view.style.display = "block";
   app.renderer.autoResize = true;
   app.renderer.resize(window.innerWidth, window.innerHeight);
+  app.renderer.render(app.stage);
   </script>
   <style>* {padding: 0; margin: 0}</style>
 </body>
