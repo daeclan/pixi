@@ -1,0 +1,39 @@
+{"frames": {
+
+"donka.jpg":
+{
+	"frame": {"x":0,"y":0,"w":385,"h":593},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":385,"h":593},
+	"sourceSize": {"w":385,"h":593},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"fion.jpg":
+{
+	"frame": {"x":385,"y":0,"w":180,"h":180},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":180},
+	"sourceSize": {"w":180,"h":180},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"skrenk.jpg":
+{
+	"frame": {"x":565,"y":0,"w":1000,"h":1000},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1000,"h":1000},
+	"sourceSize": {"w":1000,"h":1000},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "_tileset.png",
+	"format": "RGBA8888",
+	"size": {"w":1565,"h":1000},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7c489bb10f2a405f8039293631523ebf:0409dfe85d9049552363dfed469a5942:fbcf1df1a5615e0f5d72ff90c9bb6b7b$"
+}
+}

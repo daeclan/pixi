@@ -31,43 +31,63 @@
 
   //load an image and run the `setup` function when it's done
   loader
-    .add("./images/skrenk.jpg")
-    .add("./images/fion.jpg")
-    .add("./images/donka.jpg")
+    .add("./images/_tileset.json")
+    // .add("./images/skrenk.jpg")
+    // .add("./images/fion.jpg")
+    // .add("./images/donka.jpg")
     .add("./images/tileset.jpg")
     .load(setup);
+
+    let skrenk, fion, donka, id
 
   //This `setup` function will run when the image has loaded
   function setup() {
 
     //Create the cat sprite
-    let skrenk = new Sprite(resources["./images/skrenk.jpg"].texture);
-    let fion = new Sprite(resources["./images/fion.jpg"].texture);
-    let donka = new Sprite(resources["./images/donka.jpg"].texture);
-    let texture = TextureCache["./images/tileset.jpg"];
+    // let skrenk = new Sprite(resources["./images/skrenk.jpg"].texture);
+    // let fion = new Sprite(resources["./images/fion.jpg"].texture);
+    // let donka = new Sprite(resources["./images/donka.jpg"].texture);
+    // let texture = TextureCache["./images/tileset.jpg"];
 
-    let rectangle = new PIXI.Rectangle(0, 145, 95, 95);
-    texture.frame = rectangle;
-    let grass = new Sprite(texture);
-    grass.x = 0;
-    grass.y = 500;
+    // let id = PIXI.loader.resources["./images/_tileset.json"].textures;
+
+    // let skrenk = new Sprite(id["skrenk.jpg"]);
+    // fion = new Sprite(id["fion.jpg"]);
+    // texture = TextureCache["./images/tileset.jpg"];
+
+    let skrenkTexture = TextureCache["skrenk.png"];
+    skrenk = new Sprite(skrenkTexture);
+    app.stage.addChild(skrenk);
+
+    fion = new Sprite(
+    resources["./images/_tileset.json"].textures["fion.png"]
+    );
+    fion.x = 68;
+    
+
+
+    // let rectangle = new PIXI.Rectangle(0, 145, 95, 95);
+    // texture.frame = rectangle;
+    // let grass = new Sprite(texture);
+    // grass.x = 0;
+    // grass.y = 500;
     
 
 
     //Add the cat to the stage
-    app.stage.addChild(skrenk);
-    app.stage.addChild(fion);
-    app.stage.addChild(donka);
-    app.stage.addChild(grass);
+    // app.stage.addChild(skrenk);
+    // app.stage.addChild(fion);
+    // app.stage.addChild(donka);
+    // app.stage.addChild(grass);
 
     skrenk.scale.x = 0.5;
     skrenk.scale.y = 0.5;
-    donka.scale.set(0.5, 0.5);
-    donka.x = 500;
-    donka.y = 500;
-    fion.x = 700;
-    fion.y = 200;
-    fion.rotation = 0.5;
+    // donka.scale.set(0.5, 0.5);
+    // donka.x = 500;
+    // donka.y = 500;
+    // fion.x = 700;
+    // fion.y = 200;
+    // fion.rotation = 0.5;
   }
   app.renderer.view.style.position = "absolute";
   app.renderer.view.style.display = "block";
