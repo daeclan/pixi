@@ -38,6 +38,8 @@ let dungeon, explorer, treasure, door, id;
 
 function setup() {
 
+  app.ticker.add(delta => gameLoop(delta));
+
   //There are 3 ways to make sprites from textures atlas frames
 
   //1. Access the `TextureCache` directly
@@ -84,6 +86,30 @@ function setup() {
     //Make a blob
     let blob = new Sprite(id["blob.png"]);
 
+    //moves the last sprite made
+    // function gameLoop(delta){
+
+    // //Move the cat 1 pixel 
+    // blob.x += 1;
+    // }
+
+    // moves all the sprites that were made 
+
+    function gameLoop() {
+
+    //Call this `gameLoop` function on the next screen refresh
+    //(which happens 60 times per second)
+    requestAnimationFrame(gameLoop);
+
+    //Move the blob
+    blob.x += 1;
+    explorer.x += 0.002;
+    }
+
+    //Start the loop
+    gameLoop();
+
+
     //Space each blob horizontally according to the `spacing` value.
     //`xOffset` determines the point from the left of the screen
     //at which the first blob should be added.
@@ -100,12 +126,15 @@ function setup() {
     //Add the blob sprite to the stage
     app.stage.addChild(blob);
   }
+  
 }
 
 //The `randomInt` helper function
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
 
 </script>
 </body>
