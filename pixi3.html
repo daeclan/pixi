@@ -52,6 +52,8 @@ function setup() {
     resources["./_images/treasureHunter.json"].textures["explorer.png"]
   );
   explorer.x = 68;
+  explorer.vx = 0;
+  explorer.vy = 0;
 
   //Center the explorer vertically
   explorer.y = app.stage.height / 2 - explorer.height / 2;
@@ -103,7 +105,8 @@ function setup() {
 
     //Move the blob
     blob.x += 1;
-    explorer.x += 0.002;
+    explorer.vx += 0.0025
+    explorer.x = explorer.vx
     }
 
     //Start the loop
