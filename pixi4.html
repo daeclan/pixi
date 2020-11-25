@@ -1,0 +1,73 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Make a sprite from a texture atlas</title>
+<body>
+<script src="./pixi.min.js"></script>
+<script>
+    
+  //Aliases
+  let Application = PIXI.Application,
+      Container = PIXI.Container,
+      loader = PIXI.loader,
+      resources = PIXI.loader.resources,
+      TextureCache = PIXI.utils.TextureCache,
+      Sprite = PIXI.Sprite,
+      Rectangle = PIXI.Rectangle;
+
+  //Create a Pixi Application
+  let app = new Application({ 
+      width: 512, 
+      height: 512,                       
+      antialias: true, 
+      transparent: false, 
+      resolution: 1
+    }
+  );
+
+//Add the canvas that Pixi automatically created for you to the HTML document
+document.body.appendChild(app.view);
+
+//load a JSON file and run the `setup` function when it's done
+loader
+  .add("./_images/treasureHunter.json")
+  .load(setup);
+
+  let cat, state;
+
+  function setup() {
+
+    //Create the `cat` sprite 
+    explorer = new Sprite(
+      resources["./_images/treasureHunter.json"].textures["explorer.png"]
+      );
+    explorer.y = 96; 
+    explorer.vx = 0;
+    explorer.vy = 0;
+    app.stage.addChild(explorer);
+
+    //Set the game state
+    state = play;
+  
+    //Start the game loop 
+    app.ticker.add(delta => gameLoop(delta));
+  }
+
+  function gameLoop(delta){
+
+    //Update the current game state:
+    state(delta);
+  }
+
+  function play(delta) {
+
+    //Move the explorer 1 pixel to the right each frame
+    explorer.vx = 1
+    explorer.x += explorer.vx;
+  }
+
+  
+
+</script>
+</body>
+
+</html>
