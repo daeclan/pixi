@@ -1,0 +1,216 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pixi Dixie</title>
+<body>
+    
+<script src="./pixi.min.js"></script>
+<script>
+
+let Application = PIXI.Application,
+    Container = PIXI.Container,
+    loader = PIXI.loader,
+    resources = PIXI.loader.resources,
+    TextureCache = PIXI.utils.TextureCache,
+    Sprite = PIXI.Sprite,
+    Rectangle = PIXI.Rectangle;
+
+
+let app = new Application({ 
+    width: 512, 
+    height: 512,                       
+    antialias: true, 
+    transparent: false, 
+    resolution: 1
+  }
+);
+
+document.body.appendChild(app.view);
+
+loader
+  .add("./_images/treasureHunter.json")
+  .load(setup);
+  function setup() {
+
+
+//There are 3 ways to make sprites from textures atlas frames
+
+//1. Access the `TextureCache` directly
+let dungeonTexture = TextureCache["dungeon.png"];
+dungeon = new Sprite(dungeonTexture);
+app.stage.addChild(dungeon);
+
+//2. Access the texture using throuhg the loader's `resources`:
+let explorerTexture = TextureCache["explorer.png"]
+explorer = new Sprite(explorerTexture);
+explorer.x = 68;
+explorer.vx = 0;
+explorer.vy = 0;
+
+//Center the explorer vertically
+explorer.y = app.stage.height / 2 - explorer.height / 2;
+app.stage.addChild(explorer);
+
+//3. Create an optional alias called `id` for all the texture atlas 
+//frame id textures.
+id = PIXI.loader.resources["./_images/treasureHunter.json"].textures; 
+
+//Make the treasure box using the alias
+treasure = new Sprite(id["treasure.png"]);
+app.stage.addChild(treasure);
+
+//Position the treasure next to the right edge of the canvas
+treasure.x = app.stage.width - treasure.width - 48;
+treasure.y = app.stage.height / 2 - treasure.height / 2;
+app.stage.addChild(treasure);
+
+//Make the exit door
+door = new Sprite(id["door.png"]); 
+door.position.set(32, 0);
+app.stage.addChild(door);
+
+//Make the blobs
+let numberOfBlobs = 26,
+    spacing = 0.200300000000040000000001,
+    xOffset = 249;
+const blobs = [];
+
+//Make as many blobs as there are `numberOfBlobs`
+for (let i = 0; i < numberOfBlobs; i++) {
+
+  let blob = new Sprite(id["blob.png"]);
+  const totalBlobs = 20;
+  blob.anchor.set(0.5);
+
+  blob.scale.set(0.8 + Math.random() * 0.9);
+
+  blob.x = Math.random() * app.screen.width;
+  blob.y = Math.random() * app.screen.height;
+
+  // blob.tint = Math.random() * 0xFFFFFF;
+
+  blob.direction = Math.random() * Math.PI * 2;
+
+  blob.turningSpeed = Math.random() - 0.8;
+
+  blob.speed = 4 + Math.random() * 2;
+
+  blobs.push(blob);
+
+  app.stage.addChild(blob);
+}
+
+const blobBoundsPadding = .025;
+const blobBounds = new PIXI.Rectangle(-blobBoundsPadding,
+    -blobBoundsPadding,
+    app.screen.width + blobBoundsPadding * .75,
+    app.screen.height + blobBoundsPadding * .75);
+
+app.ticker.add(() => {
+    // iterate through the Blobs and update their position
+    for (let i = 0; i < blobs.length; i++) {
+        const blob = blobs[i];
+        blob.direction += blob.turningSpeed * 0.01;
+        blob.x += Math.sin(blob.direction) * blob.speed;
+        blob.y += Math.cos(blob.direction) * blob.speed;
+        blob.rotation = -blob.direction - Math.PI / 2;
+
+        // wrap the dudes by testing their bounds...
+        if (blob.x < blobBounds.x) {
+            blob.x += blobBounds.width;
+        } else if (blob.x > blobBounds.x + blobBounds.width) {
+            blob.x -= blobBounds.width;
+        }
+
+        if (blob.y < blobBounds.y) {
+            blob.y += blobBounds.height;
+        } else if (blob.y > blobBounds.y + blobBounds.height) {
+            blob.y -= blobBounds.height;
+        }
+    }
+});
+
+
+
+//   }
+
+// const blobs = [];
+
+// const totalBlobs = 20;
+
+// for (let i = 0; i < totalBlobs; i++) {
+    
+//     const blob = PIXI.Sprite.from('./_images/cat.png');
+
+    
+//     blob.anchor.set(0.5);
+
+//     blob.scale.set(0.8 + Math.random() * 0.9);
+
+//     blob.x = Math.random() * app.screen.width;
+//     blob.y = Math.random() * app.screen.height;
+
+//     blob.tint = Math.random() * 0xFFFFFF;
+
+//     blob.direction = Math.random() * Math.PI * 2;
+
+//     blob.turningSpeed = Math.random() - 0.8;
+
+//     blob.speed = 4 + Math.random() * 2;
+
+//     blobs.push(blob);
+
+//     app.stage.addChild(blob);
+// }
+
+// // create a bounding box for the little Blobs
+// const blobBoundsPadding = 100;
+// const blobBounds = new PIXI.Rectangle(-blobBoundsPadding,
+//     -blobBoundsPadding,
+//     app.screen.width + blobBoundsPadding * 2,
+//     app.screen.height + blobBoundsPadding * 2);
+
+// app.ticker.add(() => {
+//     // iterate through the Blobs and update their position
+//     for (let i = 0; i < blobs.length; i++) {
+//         const blob = blobs[i];
+//         blob.direction += blob.turningSpeed * 0.01;
+//         blob.x += Math.sin(blob.direction) * blob.speed;
+//         blob.y += Math.cos(blob.direction) * blob.speed;
+//         blob.rotation = -blob.direction - Math.PI / 2;
+
+//         // wrap the dudes by testing their bounds...
+//         if (blob.x < blobBounds.x) {
+//             blob.x += blobBounds.width;
+//         } else if (blob.x > blobBounds.x + blobBounds.width) {
+//             blob.x -= blobBounds.width;
+//         }
+
+//         if (blob.y < blobBounds.y) {
+//             blob.y += blobBounds.height;
+//         } else if (blob.y > blobBounds.y + blobBounds.height) {
+//             blob.y -= blobBounds.height;
+//         }
+//     }
+// });
+}
+
+</script>
+
+</html>
+
+
+
+<!-- function gameLoop() {
+  requestAnimationFrame(gameLoop);
+    blob.x += 1;
+    explorer.vx += 0.0025
+    explorer.vy += 0.0025
+    explorer.x = explorer.vx
+    explorer.y = explorer.vy
+    }
+  gameLoop();
+    let x = spacing * i + xOffset;
+    let y = randomInt(0, app.stage.height - blob.height);
+    blob.x = x;
+    blob.y = y;
+    app.stage.addChild(blob); -->

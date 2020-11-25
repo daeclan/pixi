@@ -22,7 +22,7 @@ for (let i = 0; i < totalDudes; i++) {
     dude.anchor.set(0.5);
 
     // set a random scale for the dude - no point them all being the same size!
-    dude.scale.set(0.8 + Math.random() * 0.3);
+    dude.scale.set(0.8 + Math.random() * 0.9);
 
     // finally lets set the dude to be at a random position..
     dude.x = Math.random() * app.screen.width;
@@ -38,7 +38,7 @@ for (let i = 0; i < totalDudes; i++) {
     dude.turningSpeed = Math.random() - 0.8;
 
     // create a random speed for the dude between 2 - 4
-    dude.speed = 2 + Math.random() * 2;
+    dude.speed = 4 + Math.random() * 2;
 
     // finally we push the dude into the aliens array so it it can be easily accessed later
     aliens.push(dude);
